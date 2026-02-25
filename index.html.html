@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarumathi K · anime tech portfolio</title>
+  <!-- Google Fonts: rounded, modern -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free) for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== style.css ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #ffeef5 0%, #f9e7ff 35%, #e3f0ff 70%, #fffae0 100%);
+      color: #2d3e4f;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* floating hardware background (animated) */
+    .floating-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .float-icon {
+      position: absolute;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-shadow: 0 4px 10px rgba(224, 187, 228, 0.3);
+      animation: floatAround 18s infinite alternate ease-in-out;
+      opacity: 0.7;
+      user-select: none;
+    }
+
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(30px, -20px) rotate(8deg); }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 5;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* glassmorphism + soft shadows + rounded */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 40px;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: all 0.2s ease;
+    }
+
+    .glass-card:hover {
+      box-shadow: 0 25px 45px -10px rgba(170, 140, 200, 0.25);
+    }
+
+    /* headings */
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #3a2b4a;
+    }
+
+    h2 {
+      font-size: 2.3rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 10px;
+      width: 60px;
+      height: 6px;
+      background: #E0BBE4;
+      border-radius: 10px;
+    }
+
+    /* ===== hero ===== */
+    .hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(130deg, #794f9b, #b4689d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 10px;
+    }
+
+    .hero-sub {
+      font-size: 1.4rem;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(5px);
+      border-radius: 60px;
+      padding: 0.8rem 2.2rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+      border: 1px solid #f5d1ff;
+    }
+
+    /* about section */
+    .about-text {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      background: rgba(255,255,255,0.3);
+      padding: 2rem;
+      border-radius: 40px;
+    }
+
+    .about-highlight {
+      background: #FFF5BA;
+      border-radius: 30px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 20px #ffe0b0;
+      margin-top: 20px;
+    }
+    .about-highlight i {
+      font-size: 2rem;
+      color: #b282b3;
+      margin-right: 8px;
+    }
+
+    /* ===== GIRL + ORBIT INTEGRATED ===== */
+    .girl-orbit-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 50px 0 50px;
+      position: relative;
+    }
+
+    .girl-container {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .anime-girl {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 15px #ffd6e0);
+      transition: transform 0.3s ease;
+      z-index: 10;
+      position: relative;
+    }
+    .girl-container:hover .anime-girl {
+      transform: scale(1.02);
+    }
+
+    /* orbiting skills positioned absolutely around the girl */
+    .orbit-around-girl {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .orbit-skill {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 15px 25px -8px rgba(200, 160, 220, 0.5);
+      border: 2px solid white;
+      font-weight: 600;
+      color: #442b5a;
+      pointer-events: auto;
+      animation: orbitGlow 3s infinite alternate;
+      text-align: center;
+      padding: 6px;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+      z-index: 20;
+    }
+
+    @keyframes orbitGlow {
+      0% { box-shadow: 0 8px 18px #ffdede; }
+      100% { box-shadow: 0 12px 28px #d5b0ff; }
+    }
+
+    .orbit-skill i {
+      font-size: 2rem;
+      color: #7c5e9c;
+    }
+
+    .orbit-skill span {
+      font-size: 0.7rem;
+      background: #ffffffb0;
+      padding: 3px 6px;
+      border-radius: 20px;
+      margin-top: 2px;
+      line-height: 1.2;
+    }
+
+    .hidden-orbit .orbit-skill {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .click-hint {
+      background: #fae0ff;
+      padding: 8px 22px;
+      border-radius: 60px;
+      font-size: 1.1rem;
+      margin-top: 20px;
+      border: 1px solid white;
+      box-shadow: 0 5px 10px #fcc9e9;
+    }
+
+    /* cards */
+    .project-card, .achievement-card, .edu-item {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 30px;
+      padding: 2rem;
+      border: 1px solid white;
+    }
+    .status-badge {
+      background: #C7F9CC;
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-weight: 600;
+      margin-top: 15px;
+    }
+
+    .education-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .edu-item {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      border-left: 12px solid #D5E1FF;
+    }
+    .edu-item i {
+      font-size: 2.5rem;
+      background: #f5e1ff;
+      width: 70px;
+      height: 70px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* contact + footer */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+    }
+    .contact-item {
+      background: white;
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.25rem;
+      box-shadow: 0 5px 10px #ffe3f0;
+      transition: 0.2s;
+    }
+    .contact-item:hover {
+      transform: translateY(-5px);
+      background: #E0BBE4;
+      color: white;
+    }
+    .contact-item i {
+      font-size: 1.8rem;
+    }
+    footer {
+      background: rgba(255, 222, 233, 0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 60px 60px 0 0;
+      padding: 2rem;
+      text-align: center;
+      font-weight: 600;
+      color: #4e3b5c;
+      margin-top: 80px;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      h2 { font-size: 2rem; }
+      .hero-title { font-size: 2.5rem; }
+      .girl-container { width: 200px; height: 200px; }
+      .orbit-skill { width: 75px; height: 75px; }
+      .orbit-skill i { font-size: 1.7rem; }
+    }
+    /* fade-in animation */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    a { text-decoration: none; color: inherit; }
+  </style>
+</head>
+<body>
+  <div class="floating-bg" id="floatBg"></div>
+
+  <div class="wrapper">
+    <!-- hero section (text only) -->
+    <section class="hero fade-section" id="hero">
+      <h1 class="hero-title">Sarumathi K</h1>
+      <div class="hero-sub">ECE Student · Aspiring IT Professional</div>
+      <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; color:#996699;">
+        <i class="fas fa-map-pin"></i> Cuddalore, Tamil Nadu
+      </div>
+    </section>
+
+    <!-- about section -->
+    <section class="fade-section" id="about">
+      <h2>🌸 about me</h2>
+      <div class="about-text glass-card">
+        I am a third-year Electronics and Communication Engineering student who recently started learning coding. I am highly interested in IT companies and passionate about developing my technical and problem-solving skills. I enjoy learning new technologies and working on innovative projects.
+      </div>
+      <div class="about-highlight">
+        <i class="fa-regular fa-heart"></i> <strong>quick info</strong><br>
+        <i class="fa-regular fa-envelope"></i> sarumathi269@gmail.com<br>
+        <i class="fa-brands fa-github"></i> <i class="fa-brands fa-linkedin"></i> GitHub · LinkedIn<br>
+        ⚡ beginner coder · eager learner
+      </div>
+    </section>
+
+    <!-- ========== INTEGRATED GIRL + ORBIT UNIT ========== -->
+    <!-- This block contains the girl and the skills orbiting around her -->
+    <div class="girl-orbit-unit fade-section" id="girlOrbitUnit">
+      <div class="girl-container" id="clickableGirl">
+        <!-- anime girl image -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'%3E%3Ccircle cx='160' cy='120' r='58' fill='%23FFDFC0'/%3E%3Ccircle cx='130' cy='100' r='8' fill='black'/%3E%3Ccircle cx='190' cy='100' r='8' fill='black'/%3E%3Cpath d='M130 150 Q160 180 190 150' stroke='%23b2649b' stroke-width='8' fill='none' stroke-linecap='round' /%3E%3Crect x='115' y='180' width='90' height='100' fill='%23fcd5d5' rx='20' /%3E%3Ccircle cx='135' cy='220' r='10' fill='%23d63031' /%3E%3Ccircle cx='185' cy='220' r='10' fill='%23d63031' /%3E%3Crect x='135' y='240' width='50' height='40' fill='%23945f9c' rx='10' /%3E%3C/svg%3E"
+             alt="Anime girl" class="anime-girl">
+
+        <!-- Orbit container (skills positioned absolutely around the girl) -->
+        <div id="orbitAroundGirl" class="orbit-around-girl hidden-orbit">
+          <!-- Skills will be injected via JS -->
+        </div>
+      </div>
+      
+      <div class="click-hint glass-card">
+        <i class="fa-regular fa-hand-pointer"></i> Touch the girl to see my skills in orbit!
+      </div>
+    </div>
+
+    <!-- projects section (right after the integrated unit) -->
+    <section class="fade-section" id="projects">
+      <h2>💻 current project</h2>
+      <div class="project-card glass-card" style="max-width: 800px;">
+        <h3 style="font-size: 2rem;">Processor Stress Aware Telemetry Optimization</h3>
+        <p style="font-size: 1.2rem; margin: 20px 0;">Currently working on a simulation-based project focused on processor stress monitoring and telemetry optimization to improve system performance and efficiency.</p>
+        <span class="status-badge"><i class="fa-regular fa-clock"></i> ongoing project</span>
+      </div>
+    </section>
+
+    <!-- achievement -->
+    <section class="fade-section" id="achievements">
+      <h2>🏆 achievement</h2>
+      <div class="achievement-card glass-card" style="max-width: 700px;">
+        <i class="fa-solid fa-robot" style="font-size: 3rem; color:#b282b3; margin-right: 15px;"></i>
+        <span style="font-size: 1.7rem; font-weight: 700;">AI Enabled Systems Workshop</span>
+        <p style="margin-top: 15px;">Participated in an AI Enabled Systems workshop at KIOT, gaining knowledge about intelligent systems and modern AI applications.</p>
+      </div>
+    </section>
+
+    <!-- education timeline -->
+    <section class="fade-section" id="education">
+      <h2>📖 education</h2>
+      <div class="education-timeline">
+        <div class="edu-item">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <div><strong>B.E - Electronics and Communication Engineering</strong><br>Government College of Engineering, Salem-11</div>
+        </div>
+        <div class="edu-item">
+          <i class="fa-solid fa-school"></i>
+          <div><strong>Higher Secondary Education</strong><br>Arunmozhy Matriculation Higher Secondary School, Cuddalore</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- contact & footer -->
+    <section class="fade-section" id="contact">
+      <h2>📬 connect with me</h2>
+      <div class="contact-links">
+        <a href="mailto:sarumathi269@gmail.com"><div class="contact-item"><i class="fa-regular fa-envelope"></i> Email</div></a>
+        <a href="https://www.linkedin.com/in/sarumathi-kulanthaivel-21a2843b3" target="_blank"><div class="contact-item"><i class="fa-brands fa-linkedin"></i> LinkedIn</div></a>
+        <a href="https://github.com/Sarumathi-26" target="_blank"><div class="contact-item"><i class="fa-brands fa-github"></i> GitHub</div></a>
+      </div>
+      <div style="margin-top: 30px; background: #ffe7f2; border-radius: 60px; padding: 20px; text-align: center; font-size: 1.1rem;">
+        <i class="fa-regular fa-note-sticky"></i> All the information provided in this portfolio is true and based on my knowledge and academic journey.
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 Sarumathi K · crafted with 💖 & pastel anime hardware</p>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      // floating background icons
+      const bg = document.getElementById('floatBg');
+      const icons = ['fa-solid fa-computer', 'fa-solid fa-keyboard', 'fa-solid fa-microchip', 'fa-solid fa-code', 'fa-solid fa-laptop', 'fa-solid fa-cpu', 'fa-regular fa-keyboard', 'fa-solid fa-display', 'fa-solid fa-hard-drive', 'fa-solid fa-memory'];
+      for (let i = 0; i < 20; i++) {
+        let iconDiv = document.createElement('i');
+        let randIcon = icons[Math.floor(Math.random() * icons.length)];
+        iconDiv.className = `float-icon ${randIcon}`;
+        iconDiv.style.left = Math.random() * 100 + '%';
+        iconDiv.style.top = Math.random() * 100 + '%';
+        iconDiv.style.fontSize = (1.5 + Math.random() * 2.5) + 'rem';
+        iconDiv.style.animationDuration = (12 + Math.random() * 20) + 's';
+        iconDiv.style.animationDelay = (Math.random() * 5) + 's';
+        bg.appendChild(iconDiv);
+      }
+
+      // SKILLS DATA (6 skills)
+      const skills = [
+        { type: 'tech', name: 'Python', level: 'Beginner', icon: 'fa-brands fa-python' },
+        { type: 'tech', name: 'C', level: 'Basic', icon: 'fa-solid fa-microchip' },
+        { type: 'soft', name: 'Team Work', icon: 'fa-solid fa-people-group' },
+        { type: 'soft', name: 'Communication', icon: 'fa-regular fa-message' },
+        { type: 'tech', name: 'Java', level: 'Learning', icon: 'fa-brands fa-java' },
+        { type: 'soft', name: 'Problem Solving', icon: 'fa-regular fa-lightbulb' }
+      ];
+
+      const orbitContainer = document.getElementById('orbitAroundGirl');
+      const girlContainer = document.getElementById('clickableGirl');
+      const girlImg = document.querySelector('.anime-girl');
+
+      // Function to place skills in a circle around the girl (relative to .girl-container)
+      function buildOrbitAroundGirl() {
+        orbitContainer.innerHTML = ''; 
+        const radius = 140; // distance from center of girl
+        // Since .girl-container is 260x260, center is at 130px,130px
+        const centerX = 130; 
+        const centerY = 130;
+        const count = skills.length;
+        const angleStep = (2 * Math.PI) / count;
+        
+        skills.forEach((skill, index) => {
+          const angle = index * angleStep + 0.2; // offset for nice spacing
+          const x = centerX + radius * Math.cos(angle) - 45; // 45 = half of skill width (90/2)
+          const y = centerY + radius * Math.sin(angle) - 45;
+          const div = document.createElement('div');
+          div.className = 'orbit-skill';
+          div.style.left = x + 'px';
+          div.style.top = y + 'px';
+          
+          if (skill.type === 'tech') {
+            div.innerHTML = `<i class="${skill.icon}"></i><span>${skill.name}<br>${skill.level}</span>`;
+          } else {
+            div.innerHTML = `<i class="${skill.icon}"></i><span>${skill.name}</span>`;
+          }
+          orbitContainer.appendChild(div);
+        });
+      }
+
+      buildOrbitAroundGirl();
+
+      // Touch / click on the girl toggles the orbit visibility
+      girlContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        orbitContainer.classList.toggle('hidden-orbit');
+      });
+
+      // Also add touch event for mobile
+      girlContainer.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        orbitContainer.classList.toggle('hidden-orbit');
+      });
+
+      // fade sections on scroll
+      const faders = document.querySelectorAll('.fade-section');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+      faders.forEach(f => observer.observe(f));
+
+      // gentle parallax on the girl
+      window.addEventListener('mousemove', (e) => {
+        const moveX = (e.clientX / window.innerWidth - 0.5) * 6;
+        const moveY = (e.clientY / window.innerHeight - 0.5) * 6;
+        if (girlImg) {
+          girlImg.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
+      });
+
+      // initially visible for hero
+      setTimeout(() => {
+        document.getElementById('hero').classList.add('visible');
+      }, 100);
+    })();
+  </script>
+</body>
+</html>
